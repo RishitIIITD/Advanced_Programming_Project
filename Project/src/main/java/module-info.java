@@ -7,6 +7,6 @@ module com.example.fx_tutorial {
     requires org.kordamp.bootstrapfx.core;
     requires com.almasb.fxgl.all;
 
-    opens com.example.fx_tutorial to javafx.fxml;
-    exports com.example.fx_tutorial;
+    opens com.example.ap_project to javafx.fxml;
+    exports com.example.ap_project;
 }

@@ -1,4 +1,4 @@
-package com.example.fx_tutorial;
+package com.example.ap_project;
 
 import javafx.application.Application;      // this abstract class is entry point for javafx applications
 // it executes user application and processes input events
