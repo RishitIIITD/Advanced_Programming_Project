@@ -13,8 +13,8 @@ public class test extends Application {     // main class extends Application
     @Override
     public void start(Stage stage) throws IOException {     // start method is main entry point for javafx applications
         Parent root= FXMLLoader.load(getClass().getResource("hello-view.fxml"));
-        stage.setScene(new Scene(root,300,275));
-        stage.setTitle("Hey People!");
+        stage.setScene(new Scene(root,360,430));
+        stage.setTitle("Stick Hero Game");
         stage.show();
     }
 
