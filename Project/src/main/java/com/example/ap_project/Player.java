@@ -3,7 +3,7 @@ package com.example.ap_project;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class Player {
+public class    Player {
     private Image img;
     private ImageView imgv;
     private double stickLength;
