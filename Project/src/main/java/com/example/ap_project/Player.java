@@ -3,12 +3,7 @@ package com.example.ap_project;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-<<<<<<< Updated upstream
-public class    Player {
-    private Image img;
-=======
 public class Player {
->>>>>>> Stashed changes
     private ImageView imgv;
     private double stickLength;
     private boolean isFlipped;
