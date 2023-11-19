@@ -15,32 +15,33 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class HelloController implements Initializable {
-
-    @FXML
-    private ImageView bg;
-    @FXML
-    private Button btn;
-    @FXML
-    private ImageView cherry_icon;
-    private Reward reward;
-    @FXML
-    private Circle circle;
-
-    @FXML
-    private Text counter;
-
-    private Player player;
     @FXML
     private AnchorPane pane;
 
     @FXML
-    private Rectangle platform;
+    private ImageView bg;
+    @FXML
+    private Label welcomeText;
 
+    @FXML
+    private Button btn;
+    @FXML
+    private Circle circle;
     @FXML
     private Text txt;
 
     @FXML
-    private Label welcomeText;
+    private ImageView cherry_icon;
+    private Reward reward;
+    @FXML
+    private Text counter;
+
+    @FXML
+    private ImageView player_icon;
+    private Player player;
+
+    @FXML
+    private Rectangle platform;
 
     @FXML
     void onHelloButtonClick(ActionEvent event) {
@@ -58,10 +59,6 @@ public class HelloController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        player=new Player();
-        pane.getChildren().add(player.getImgv());
-        player.getImgv().setLayoutX(platform.getLayoutX());
-        double size=player.getImgv().getFitWidth();
-        player.getImgv().setLayoutY(platform.getLayoutY()-57);
+        player=new Player(player_icon);
     }
 }

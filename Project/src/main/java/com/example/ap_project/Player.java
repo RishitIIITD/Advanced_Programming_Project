@@ -3,15 +3,18 @@ package com.example.ap_project;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+<<<<<<< Updated upstream
 public class    Player {
     private Image img;
+=======
+public class Player {
+>>>>>>> Stashed changes
     private ImageView imgv;
     private double stickLength;
     private boolean isFlipped;
 
-    public Player(){
-        img=new Image(getClass().getResourceAsStream("ninja1.png"));
-        imgv=new ImageView(img);
+    public Player(ImageView imgv){
+        this.imgv=imgv;
     }
 
     public ImageView getImgv(){
