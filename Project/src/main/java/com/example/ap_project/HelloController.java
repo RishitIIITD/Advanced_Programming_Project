@@ -7,24 +7,29 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class HelloController implements Initializable{
+public class HelloController implements Initializable {
 
     @FXML
     private ImageView bg;
-
     @FXML
     private Button btn;
-
-    private Player player;
+    @FXML
+    private ImageView cherry_icon;
+    private Reward reward;
+    @FXML
+    private Circle circle;
 
     @FXML
-    private ImageView img;
+    private Text counter;
 
+    private Player player;
     @FXML
     private AnchorPane pane;
 
@@ -32,18 +37,31 @@ public class HelloController implements Initializable{
     private Rectangle platform;
 
     @FXML
+    private Text txt;
+
+    @FXML
     private Label welcomeText;
 
     @FXML
     void onHelloButtonClick(ActionEvent event) {
-        welcomeText.setText("Welcome to the game!!");
-        btn.setText("Extend the stick");
+        txt.setText("EXTEND");
+        counter.setVisible(true);
         platform.setLayoutX(0);
-        player.getImg().setLayoutX(platform.getLayoutX());
+        player.getImgv().setLayoutX(0);
+        reward=new Reward();
+        pane.getChildren().add(reward.getImgv());
+        reward.getImgv().setLayoutX(platform.getBoundsInParent().getMaxX()+20);
+        reward.getImgv().setLayoutY(platform.getLayoutY()-57);
+        System.out.println("Min of platform: "+platform.getBoundsInParent().getMinX());
+        System.out.println("Max of platform: "+platform.getBoundsInParent().getMaxX());
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        player=new Player(img);
+        player=new Player();
+        pane.getChildren().add(player.getImgv());
+        player.getImgv().setLayoutX(platform.getLayoutX());
+        double size=player.getImgv().getFitWidth();
+        player.getImgv().setLayoutY(platform.getLayoutY()-57);
     }
 }

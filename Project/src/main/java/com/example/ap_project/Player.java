@@ -4,28 +4,30 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class Player {
-    private ImageView img;
+    private Image img;
+    private ImageView imgv;
     private double stickLength;
     private boolean isFlipped;
 
-    public Player(ImageView img){
-        this.img=img;
+    public Player(){
+        img=new Image(getClass().getResourceAsStream("ninja1.png"));
+        imgv=new ImageView(img);
     }
 
-    public ImageView getImg(){
-        return this.img;
+    public ImageView getImgv(){
+        return this.imgv;
     }
 
-    public void setImg(ImageView img){
-        this.img=img;
+    public void setImgv(ImageView new_img){
+        this.imgv=new_img;
     }
 
     public double getStickLength(){
         return this.stickLength;
     }
 
-    public void setStickLength(double length){
-        this.stickLength=length;
+    public void setStickLength(double new_length){
+        this.stickLength=new_length;
     }
 
     public boolean isitFlipped(){
@@ -37,7 +39,7 @@ public class Player {
     }
 
     public void moveRight(double Xpos){
-        this.img.setLayoutX(Xpos);
+        this.imgv.setLayoutX(Xpos);
     }
     public void extendStick(){
 
