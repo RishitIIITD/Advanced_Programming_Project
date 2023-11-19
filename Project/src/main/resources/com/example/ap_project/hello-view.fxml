@@ -37,7 +37,7 @@
             <Blend mode="OVERLAY" />
          </effect></Button>
       <Rectangle fx:id="platform" arcHeight="5.0" arcWidth="5.0" height="119.0" layoutX="138.0" layoutY="397.0" stroke="BLACK" strokeType="INSIDE" width="80.0" />
-      <ImageView fx:id="cherry" fitHeight="45.0" fitWidth="40.0" layoutX="180.0" layoutY="91.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="cherry_icon" fitHeight="45.0" fitWidth="40.0" layoutX="180.0" layoutY="91.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@cherry.png" />
          </image>

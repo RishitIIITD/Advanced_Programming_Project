@@ -47,14 +47,13 @@ public class HelloController implements Initializable {
     void onHelloButtonClick(ActionEvent event) {
         txt.setText("EXTEND");
         counter.setVisible(true);
+        cherry_icon.setVisible(true);
         platform.setLayoutX(0);
         player.getImgv().setLayoutX(0);
         reward=new Reward();
         pane.getChildren().add(reward.getImgv());
         reward.getImgv().setLayoutX(platform.getBoundsInParent().getMaxX()+20);
         reward.getImgv().setLayoutY(platform.getLayoutY()-57);
-        System.out.println("Min of platform: "+platform.getBoundsInParent().getMinX());
-        System.out.println("Max of platform: "+platform.getBoundsInParent().getMaxX());
     }
 
     @Override
