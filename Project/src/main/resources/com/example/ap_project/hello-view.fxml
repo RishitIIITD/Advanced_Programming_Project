@@ -23,13 +23,13 @@
             <Image url="@ninja1.png" />
          </image>
       </ImageView>
-          <Label fx:id="welcomeText" alignment="CENTER" contentDisplay="CENTER" layoutX="4.0" prefHeight="92.0" prefWidth="351.0" text="STICK HERO" textAlignment="CENTER" wrapText="true">
+          <Label fx:id="welcomeText" alignment="CENTER" contentDisplay="CENTER" layoutX="4.0" prefHeight="45.0" prefWidth="351.0" text="STICK" textAlignment="CENTER" wrapText="true">
          <font>
-            <Font size="31.0" />
+            <Font name="Arial Black" size="64.0" />
          </font>
       </Label>
-      <Circle fx:id="circle" fill="#fc3700" layoutX="178.0" layoutY="195.0" radius="56.0" stroke="BLACK" strokeType="INSIDE" />
-       <Button fx:id="btn" layoutX="119.0" layoutY="139.0" onAction="#onHelloButtonClick" opacity="0.0" prefHeight="112.0" prefWidth="119.0">
+      <Circle fx:id="circle" fill="#fc3700" layoutX="178.0" layoutY="238.0" radius="56.0" stroke="BLACK" strokeType="INSIDE" />
+       <Button fx:id="btn" layoutX="120.0" layoutY="219.0" onAction="#onHelloButtonClick" opacity="0.0" prefHeight="112.0" prefWidth="119.0">
          <font>
             <Font name="Times New Roman" size="12.0" />
          </font>
@@ -37,7 +37,11 @@
             <Blend mode="OVERLAY" />
          </effect></Button>
       <Rectangle fx:id="platform" arcHeight="5.0" arcWidth="5.0" height="119.0" layoutX="138.0" layoutY="397.0" stroke="BLACK" strokeType="INSIDE" width="80.0" />
+<<<<<<< Updated upstream
       <ImageView fx:id="cherry_icon" fitHeight="45.0" fitWidth="40.0" layoutX="180.0" layoutY="91.0" pickOnBounds="true" preserveRatio="true" visible="false">
+=======
+      <ImageView fx:id="cherry" fitHeight="45.0" fitWidth="40.0" layoutX="180.0" layoutY="91.0" pickOnBounds="true" preserveRatio="true" visible="false">
+>>>>>>> Stashed changes
          <image>
             <Image url="@cherry.png" />
          </image>
@@ -47,10 +51,15 @@
             <Font size="23.0" />
          </font>
       </Text>
-      <Text fx:id="txt" fill="#f2eded" layoutX="134.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PLAY" textAlignment="CENTER" wrappingWidth="87.7132568359375">
+      <Text fx:id="txt" fill="#f2eded" layoutX="136.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PLAY" textAlignment="CENTER" wrappingWidth="87.7132568359375">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
+      <Label layoutX="85.0" layoutY="65.0" text="HERO">
+         <font>
+            <Font name="Arial Black" size="60.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
