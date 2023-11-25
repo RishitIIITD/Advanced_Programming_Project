@@ -50,7 +50,6 @@ public class HelloController implements Initializable {
         cherry_icon.setVisible(true);
         platform.setLayoutX(0);
         player.getImgv().setLayoutX(0);
-        cherry_icon.setVisible(true);
         reward=new Reward();
         pane.getChildren().add(reward.getImgv());
         reward.getImgv().setLayoutX(platform.getBoundsInParent().getMaxX()+20);
