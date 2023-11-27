@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="pane" prefHeight="430.0" prefWidth="360.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.ap_project.HelloController">
+<AnchorPane fx:id="pane" prefHeight="430.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ap_project.HelloController">
     <children>
         <ImageView fx:id="bg" fitHeight="512.6" fitWidth="360.0" layoutX="9.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -29,7 +29,7 @@
             </font>
         </Label>
         <Circle fx:id="circle" fill="#fc3700" layoutX="178.0" layoutY="195.0" radius="56.0" stroke="BLACK" strokeType="INSIDE" />
-        <Button fx:id="btn" layoutX="119.0" layoutY="139.0" onAction="#onHelloButtonClick" opacity="0.0" prefHeight="112.0" prefWidth="119.0">
+        <Button fx:id="btn" layoutX="119.0" layoutY="139.0" onMouseClicked="#onHelloButtonClick" opacity="0.0" prefHeight="112.0" prefWidth="119.0">
             <font>
                 <Font name="Times New Roman" size="12.0" />
             </font>
