@@ -1,7 +1,9 @@
 package com.example.ap_project;
 
+import javafx.animation.RotateTransition;
 import javafx.scene.Node;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.transform.Rotate;
 
 public class Stick extends Node {
     private Rectangle stick;
@@ -20,8 +22,10 @@ public class Stick extends Node {
     }
 
     public void increaseHeight(double increment) {
-        height += increment;
-        stick.setHeight(height);
-        stick.setLayoutY(stick.getLayoutY() - increment); // Move the stick upwards
+        if (this.height<360) {
+            height += increment;
+            stick.setHeight(height);
+            stick.setLayoutY(stick.getLayoutY() - increment); // Move the stick upwards
+        }
     }
 }
