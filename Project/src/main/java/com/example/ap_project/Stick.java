@@ -23,15 +23,15 @@ public class Stick extends Node {
         return this.stick;
     }
 
-    public void increaseHeight(double increment) {
-        if (this.height<360) {
+    public void increaseHeight(double increment, double X_coord) {
+        if (this.height<360-X_coord) {      // increase as much so that horizontally it just touches the frame
             height += increment;
             stick.setHeight(height);
             stick.setLayoutY(stick.getLayoutY() - increment); // Move the stick upwards
         }
     }
 
-    public void rotate90degrees(){
+    public void rotate90degrees(double X_coord){
         System.out.println("Before rotation:");
         System.out.println("Top of stick: "+this.getStick().getBoundsInParent().getMinY());
         System.out.println("Bottom of stick: "+this.getStick().getBoundsInParent().getMaxY());
@@ -46,7 +46,7 @@ public class Stick extends Node {
 
         stick.getTransforms().add(r);
 
-        stick.setLayoutX(80+stick.getHeight());
+        stick.setLayoutX(X_coord+stick.getHeight());
         stick.setLayoutY(397-6);
 
         System.out.println("After rotation:");

@@ -102,7 +102,8 @@ public class HelloController implements Initializable {
         });
         btn.setOnMouseReleased(mouseEvent -> {
             isIncreasing=false;
-            new_stick.rotate90degrees();
+            System.out.println("Max X of platform: "+primary_platform.getWidth());
+            new_stick.rotate90degrees(primary_platform.getWidth());     // pass width as argument
         });
     }
 
@@ -111,7 +112,7 @@ public class HelloController implements Initializable {
         player=new Player(player_icon);
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(10), e -> {
             if (isIncreasing) {
-                new_stick.increaseHeight(5); // You can adjust the length increment as needed
+                new_stick.increaseHeight(5,primary_platform.getWidth()); // You can adjust the length increment as needed
             }
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
