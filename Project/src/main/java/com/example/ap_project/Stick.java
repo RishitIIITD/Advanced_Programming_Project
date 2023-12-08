@@ -40,15 +40,14 @@ public class Stick extends Node {
         System.out.println("Right of stick: "+this.getStick().getBoundsInParent().getMaxX());
         System.out.println();
 
-        double pivotX = stick.getLayoutX() + width / 2;
-        double pivotY = stick.getLayoutY() + height;
+        Rotate r=new Rotate();
 
-        RotateTransition rt=new RotateTransition(Duration.seconds(0.5),stick);
+        r.setAngle(90);
 
-        rt.setByAngle(90);
-        rt.play();
+        stick.getTransforms().add(r);
 
-        stick.setLayoutX(stick.getHeight()/2+80);
+        stick.setLayoutX(80+stick.getHeight());
+        stick.setLayoutY(397-6);
 
         System.out.println("After rotation:");
         System.out.println("Top of stick: "+this.getStick().getBoundsInParent().getMinY());
