@@ -4,6 +4,8 @@ import javafx.animation.RotateTransition;
 import javafx.scene.Node;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Translate;
+import javafx.util.Duration;
 
 public class Stick extends Node {
     private Rectangle stick;
@@ -13,7 +15,7 @@ public class Stick extends Node {
 
     public Stick(double platform_max_X) {
         stick = new Rectangle(width, height);
-        stick.setLayoutY(Y_coord); // Adjust the layoutY to set the top of the stick
+        stick.setLayoutY(Y_coord);      // Adjust the layoutY to set the top of the stick
         stick.setLayoutX(platform_max_X - 5);
     }
 
@@ -27,5 +29,33 @@ public class Stick extends Node {
             stick.setHeight(height);
             stick.setLayoutY(stick.getLayoutY() - increment); // Move the stick upwards
         }
+    }
+
+    public void rotate90degrees(){
+        System.out.println("Before rotation:");
+        System.out.println("Top of stick: "+this.getStick().getBoundsInParent().getMinY());
+        System.out.println("Bottom of stick: "+this.getStick().getBoundsInParent().getMaxY());
+
+        System.out.println("Left of stick: "+this.getStick().getBoundsInParent().getMinX());
+        System.out.println("Right of stick: "+this.getStick().getBoundsInParent().getMaxX());
+        System.out.println();
+
+        double pivotX = stick.getLayoutX() + width / 2;
+        double pivotY = stick.getLayoutY() + height;
+
+        RotateTransition rt=new RotateTransition(Duration.seconds(0.5),stick);
+
+        rt.setByAngle(90);
+        rt.play();
+
+        stick.setLayoutX(stick.getHeight()/2+80);
+
+        System.out.println("After rotation:");
+        System.out.println("Top of stick: "+this.getStick().getBoundsInParent().getMinY());
+        System.out.println("Bottom of stick: "+this.getStick().getBoundsInParent().getMaxY());
+
+        System.out.println("Left of stick: "+this.getStick().getBoundsInParent().getMinX());
+        System.out.println("Right of stick: "+this.getStick().getBoundsInParent().getMaxX());
+        System.out.println();
     }
 }

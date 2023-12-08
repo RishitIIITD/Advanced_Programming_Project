@@ -16,6 +16,7 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 import java.net.URL;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 public class HelloController implements Initializable {
@@ -45,13 +46,16 @@ public class HelloController implements Initializable {
     private Player player;
 
     @FXML
-    private Rectangle platform;
+    private Rectangle primary_platform;
+    private Rectangle secondary_platform;
 
     private boolean clicked_play=false;
 
     private Stick new_stick;
 
     private boolean isIncreasing=false;
+
+    Random rand=new Random();
 
     @FXML
     void onHelloButtonClick(MouseEvent event) {
@@ -61,21 +65,44 @@ public class HelloController implements Initializable {
         counter.setVisible(true);
         cherry_icon.setVisible(true);
 
-        platform.setLayoutX(0);
+        primary_platform.setLayoutX(0);
         player.getImgv().setLayoutX(0);
 
         reward=new Reward();
         pane.getChildren().add(reward.getImgv());
-        reward.getImgv().setLayoutX(platform.getBoundsInParent().getMaxX()+20);
-        reward.getImgv().setLayoutY(platform.getLayoutY()-57);
+        reward.getImgv().setLayoutX(primary_platform.getBoundsInParent().getMaxX()+20);
+        reward.getImgv().setLayoutY(primary_platform.getLayoutY()-57);
 
-        new_stick=new Stick(platform.getBoundsInParent().getMaxX());
+        if (clicked_play==false) {      // to ensure that only 1 platform is generated at a time. may change
+            System.out.println(clicked_play);
+            // creating new platform
+            secondary_platform = new Rectangle();
+            secondary_platform.setHeight(119);
+            double gap = primary_platform.getBoundsInParent().getMaxX() + 20;
+            double high = rand.nextDouble(360 - gap + 1) + gap;
+            double low = rand.nextDouble(high - gap + 1) + gap;
+            double width;
+            if (high - low < 20) {       // minimum width should be 20
+                width = 20;
+            } else {
+                width = high - low;
+            }
+            secondary_platform.setWidth(width);
+            secondary_platform.setLayoutX(low);
+            secondary_platform.setLayoutY(397);
+            pane.getChildren().add(secondary_platform);
+            System.out.println("Created a second platform");
+        }
+        clicked_play=true;
+
+        new_stick=new Stick(primary_platform.getBoundsInParent().getMaxX());
         btn.setOnMousePressed(mouseEvent -> {
             pane.getChildren().add(new_stick.getStick());
             isIncreasing=true;
         });
         btn.setOnMouseReleased(mouseEvent -> {
             isIncreasing=false;
+            new_stick.rotate90degrees();
         });
     }
 
