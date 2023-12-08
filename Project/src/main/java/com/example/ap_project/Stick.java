@@ -46,7 +46,7 @@ public class Stick extends Node {
 
         stick.getTransforms().add(r);
 
-        stick.setLayoutX(X_coord+stick.getHeight());
+        stick.setLayoutX(X_coord+stick.getHeight());        // offset to increase
         stick.setLayoutY(397-6);
 
         System.out.println("After rotation:");
@@ -56,5 +56,16 @@ public class Stick extends Node {
         System.out.println("Left of stick: "+this.getStick().getBoundsInParent().getMinX());
         System.out.println("Right of stick: "+this.getStick().getBoundsInParent().getMaxX());
         System.out.println();
+    }
+
+    public boolean did_land(double tip, Rectangle sec_platform){
+        double min=sec_platform.getBoundsInParent().getMinX();
+        double max=sec_platform.getBoundsInParent().getMaxX();
+        System.out.println("MIN: "+min);
+        System.out.println("MAX: "+max);
+        if (min<=tip && tip <=max){
+            return true;
+        }
+        return false;
     }
 }

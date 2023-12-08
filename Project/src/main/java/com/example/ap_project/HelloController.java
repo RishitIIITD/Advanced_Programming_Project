@@ -22,12 +22,15 @@ import java.util.ResourceBundle;
 public class HelloController implements Initializable {
     @FXML
     private AnchorPane pane;
+    private double pane_width=360;
+    private double pane_height=430;
 
     @FXML
     private ImageView bg;
     @FXML
     private Label welcomeText;
 
+    //button and look of it
     @FXML
     private Button btn;
     @FXML
@@ -35,19 +38,24 @@ public class HelloController implements Initializable {
     @FXML
     private Text txt;
 
+    //cherry
     @FXML
     private ImageView cherry_icon;
     private Reward reward;
     @FXML
     private Text counter;
 
+    // player
     @FXML
     private ImageView player_icon;
     private Player player;
 
+    //platforms
     @FXML
     private Rectangle primary_platform;
     private Rectangle secondary_platform;
+    private double platform_height=119;
+    private double platform_layoutY=397;
 
     private boolean clicked_play=false;
 
@@ -77,7 +85,7 @@ public class HelloController implements Initializable {
             System.out.println(clicked_play);
             // creating new platform
             secondary_platform = new Rectangle();
-            secondary_platform.setHeight(119);
+            secondary_platform.setHeight(platform_height);
             double gap = primary_platform.getBoundsInParent().getMaxX() + 20;
             double high = rand.nextDouble(360 - gap + 1) + gap;
             double low = rand.nextDouble(high - gap + 1) + gap;
@@ -89,7 +97,7 @@ public class HelloController implements Initializable {
             }
             secondary_platform.setWidth(width);
             secondary_platform.setLayoutX(low);
-            secondary_platform.setLayoutY(397);
+            secondary_platform.setLayoutY(platform_layoutY);
             pane.getChildren().add(secondary_platform);
             System.out.println("Created a second platform");
         }
@@ -103,7 +111,20 @@ public class HelloController implements Initializable {
         btn.setOnMouseReleased(mouseEvent -> {
             isIncreasing=false;
             System.out.println("Max X of platform: "+primary_platform.getWidth());
-            new_stick.rotate90degrees(primary_platform.getWidth());     // pass width as argument
+            new_stick.rotate90degrees(primary_platform.getWidth());     // pass width as argument to upperlimit height
+            double tip_of_stick=new_stick.getStick().getBoundsInParent().getMaxX();      // steps to move right
+            System.out.println(tip_of_stick);
+            boolean landed=new_stick.did_land(tip_of_stick, secondary_platform);
+            if (landed){
+                double steps_to_move=secondary_platform.getBoundsInParent().getMaxX();
+                player.moveRight_when_landed(steps_to_move);
+            }
+            else{
+                System.out.println("YOU SHALL NOT LAND");
+                player.moveRight_when_failed(tip_of_stick);
+                System.out.println("NOW FALL");
+                player.fall_down(pane_height);
+            }
         });
     }
 
@@ -112,7 +133,7 @@ public class HelloController implements Initializable {
         player=new Player(player_icon);
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(10), e -> {
             if (isIncreasing) {
-                new_stick.increaseHeight(5,primary_platform.getWidth()); // You can adjust the length increment as needed
+                new_stick.increaseHeight(3,primary_platform.getWidth()); // You can adjust the length increment as needed
             }
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
