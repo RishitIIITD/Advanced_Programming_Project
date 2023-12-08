@@ -1,5 +1,6 @@
 package com.example.ap_project;
 
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -31,5 +32,12 @@ public class Reward {
 
     public void setPoints(int new_points){
         this.points=new_points;
+    }
+
+    public void removeCherry(){
+        Node parent = imgv.getParent();
+        if (parent instanceof javafx.scene.layout.Pane) {
+            ((javafx.scene.layout.Pane) parent).getChildren().remove(imgv);
+        }
     }
 }

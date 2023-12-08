@@ -117,13 +117,12 @@ public class HelloController implements Initializable {
             boolean landed=new_stick.did_land(tip_of_stick, secondary_platform);
             if (landed){
                 double steps_to_move=secondary_platform.getBoundsInParent().getMaxX();
-                player.moveRight_when_landed(steps_to_move);
+                player.moveRight_when_landed(steps_to_move, reward);
             }
             else{
                 System.out.println("YOU SHALL NOT LAND");
-                player.moveRight_when_failed(tip_of_stick);
-                System.out.println("NOW FALL");
-                player.fall_down(pane_height);
+                player.fall_down(tip_of_stick, pane_height);
+                btn.setDisable(true);
             }
         });
     }

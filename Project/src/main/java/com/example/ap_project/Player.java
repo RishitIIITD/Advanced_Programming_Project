@@ -1,8 +1,10 @@
 package com.example.ap_project;
 
 import javafx.animation.TranslateTransition;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 public class Player {
@@ -40,7 +42,7 @@ public class Player {
         isFlipped=!isFlipped;
     }
 
-    public void moveRight_when_landed(double Xpos){
+    public void moveRight_when_landed(double Xpos, Reward reward){
         double currentX = this.imgv.getX();
         double destinationX = Xpos - player_width;
 
@@ -48,12 +50,25 @@ public class Player {
         translateTransition.setToX(destinationX);
         translateTransition.setFromX(currentX);
 
+        translateTransition.setOnFinished(event -> {
+            System.out.println("Moved right: " + Xpos);
+            checkAndHandleRewardCollision(reward);
+        });
+
         translateTransition.play();
 
         System.out.println("Moved right: "+Xpos);
     }
 
-    public void moveRight_when_failed(double Xpos){
+    private void checkAndHandleRewardCollision(Reward reward) {
+        if (this.imgv.getBoundsInParent().intersects(reward.getImgv().getBoundsInParent())) {
+            System.out.println("CONTACT");
+            reward.getImgv().setVisible(false);
+            reward.removeCherry();
+        }
+    }
+
+    public void fall_down(double Xpos, double bottom){
         double currentX=this.imgv.getX();
         double destinationX=Xpos;
 
@@ -61,16 +76,9 @@ public class Player {
         translateTransition.setToX(destinationX);
         translateTransition.setFromX(currentX);
 
-        translateTransition.play();
-
-        System.out.println("Moved right: "+Xpos);
-    }
-
-    public void fall_down(double bottom){
         double currentY=this.imgv.getY();
         double destinationY=bottom-300;
 
-        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(.5), this.imgv);
         translateTransition.setToY(destinationY);
         translateTransition.setFromY(currentY);
 
