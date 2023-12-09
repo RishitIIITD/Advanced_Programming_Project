@@ -3,7 +3,6 @@ package com.example.ap_project;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -47,6 +46,8 @@ public class HelloController implements Initializable {
     @FXML
     private Text counter;
     private int ct=0;
+    @FXML
+    private Rectangle score_bg;
 
     // player
     @FXML
@@ -59,6 +60,7 @@ public class HelloController implements Initializable {
     private Rectangle secondary_platform;
     private static final double platform_height=119;
     private static final double platform_layoutY=397;
+    private int platform_ct=0;
 
     private boolean clicked_play=false;
     private boolean game_over=false;
@@ -79,17 +81,18 @@ public class HelloController implements Initializable {
     @FXML
     void onHelloButtonClick(MouseEvent event) {
         if (!clicked_play) {        // this should happen once
-            bg.setVisible(false);
+            System.out.println("ACCESSED ONCE");
             welcomeText.setVisible(false);
             txt.setText("EXTEND");
             counter.setVisible(true);
             cherry_icon.setVisible(true);
-        }
+            score_bg.setVisible(true);
 
-        primary_platform.setLayoutX(0);
-        player.getImgv().setLayoutX(0);
+            primary_platform.setLayoutX(0);
+            player.getImgv().setLayoutX(0);
 
-        if (!clicked_play) {      // to ensure that only 1 platform is generated at a time. may change
+            // to ensure that only 1 platform is generated at a time. may change
+
             System.out.println(clicked_play);
             // creating new platform
             secondary_platform = new Rectangle();
@@ -120,6 +123,7 @@ public class HelloController implements Initializable {
 
     @FXML
     void Pressing(MouseEvent event) {
+        System.out.println("Pressed");
         if (clicked_play){
             new_stick=new Stick(primary_platform.getBoundsInParent().getMaxX());
             pane.getChildren().add(new_stick.getStick());
@@ -129,26 +133,52 @@ public class HelloController implements Initializable {
 
     @FXML
     void Released(MouseEvent event) {
+        System.out.println("Released");
         if (clicked_play){
             isIncreasing=false;
             System.out.println("Max X of platform: "+primary_platform.getWidth());
             new_stick.rotate90degrees(primary_platform.getWidth());     // pass width as argument to upper_limit height
             double tip_of_stick=new_stick.getStick().getBoundsInParent().getMaxX();      // steps to move right
-            System.out.println(tip_of_stick);
+            System.out.println(tip_of_stick);       // debug
             boolean landed=new_stick.did_land(tip_of_stick, secondary_platform);
 
-            if (landed){
+            if (landed){        // landed perfectly
                 double steps_to_move=secondary_platform.getBoundsInParent().getMaxX();
-                player.moveRight_when_landed(steps_to_move, reward, pane, ct, counter);
+                player.moveRight_when_landed(steps_to_move, reward, pane);
+                platform_ct++;
+                counter.setText(String.valueOf(platform_ct));
 
                 // disappear the disk after some time(2 sec)
-                FadeTransition fadeTransition = new FadeTransition(Duration.seconds(2), new_stick.getStick());
-                fadeTransition.setFromValue(1.0); // Starting opacity
-                fadeTransition.setToValue(0.0);   // Ending opacity
-                fadeTransition.play();
-                fadeTransition.setOnFinished(e->{});
+                Fade(new_stick.getStick());
+
+                primary_platform.setWidth(secondary_platform.getWidth());
+                primary_platform.setLayoutX(0);
+                System.out.println("Before Player's LayoutX: "+player.getImgv().getLayoutX());
+                player.getImgv().setLayoutX(0);
+                System.out.println("After Player's LayoutX: "+player.getImgv().getLayoutX());
+
+                // Reset the dimension of the secondary platform with random width
+                double gap = primary_platform.getBoundsInParent().getMaxX() + 20;
+                double high = rand.nextDouble(360 - gap + 1) + gap;
+                double low = rand.nextDouble(high - gap + 1) + gap;
+                double width;
+                if (high - low < 20) {      // minimum width should be 20
+                    width = 20;
+                }
+                else {
+                    width = high - low;
+                }
+                secondary_platform.setWidth(width);
+                secondary_platform.setLayoutX(low);
+                secondary_platform.setLayoutY(platform_layoutY);
+
+                //Creating new Rewards
+                reward = new Reward();
+                pane.getChildren().add(reward.getImgv());
+                reward.getImgv().setLayoutX(secondary_platform.getLayoutX());
+                reward.getImgv().setLayoutY(platform_layoutY - 45);
             }
-            else{
+            else{       // failed
                 System.out.println("YOU SHALL NOT LAND");
                 player.fall_down(tip_of_stick, pane_height);
                 txt.setText("GAME OVER");
@@ -156,14 +186,13 @@ public class HelloController implements Initializable {
                 txt.toFront();
 
                 // disappear the disk after some time(2 sec)
-                FadeTransition fadeTransition = new FadeTransition(Duration.seconds(2), new_stick.getStick());
-                fadeTransition.setFromValue(1.0); // Starting opacity
-                fadeTransition.setToValue(0.0);   // Ending opacity
-                fadeTransition.play();
-                fadeTransition.setOnFinished(e->{});
+                Fade(new_stick.getStick());
 
-                btn.setDisable(true);
-                pause_menu.setVisible(true);
+                // player disappears after 2 sec
+                Fade(Player.getInstance(player_icon).getImgv());
+
+                btn.setDisable(true);       // disable extend button
+                pause_menu.setVisible(true);        // make background translucent
                 game_over=true;
             }
         }
@@ -189,12 +218,24 @@ public class HelloController implements Initializable {
         }
     }
 
+    public static void Fade(Node n){        // polymorphism
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(2), n);
+        fadeTransition.setFromValue(1.0); // Starting opacity
+        fadeTransition.setToValue(0.0);   // Ending opacity
+        fadeTransition.play();
+        fadeTransition.setOnFinished(e->{});
+    }
+
+    public static int add(int a, int b){
+        return a+b;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         player=Player.getInstance(player_icon);
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(10), e -> {
             if (isIncreasing) {
-                new_stick.increaseHeight(3,primary_platform.getWidth()); // You can adjust the length increment as needed
+                new_stick.increaseHeight(2,primary_platform.getWidth()); // You can adjust the length increment as needed
             }
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);

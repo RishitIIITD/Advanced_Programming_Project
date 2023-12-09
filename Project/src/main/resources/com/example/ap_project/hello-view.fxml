@@ -13,9 +13,9 @@
 
 <AnchorPane fx:id="pane" prefHeight="430.0" prefWidth="360.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.ap_project.HelloController">
     <children>
-        <ImageView fx:id="bg" fitHeight="512.6" fitWidth="360.0" layoutX="9.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="bg" fitHeight="512.6" fitWidth="360.0" layoutX="1.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@new_background2.jpg" />
+                <Image url="@BG1.png" />
             </image>
         </ImageView>
         <ImageView fx:id="player_icon" fitHeight="80.0" fitWidth="60.0" layoutX="148.0" layoutY="345.0" pickOnBounds="true" preserveRatio="true">
@@ -23,9 +23,9 @@
                 <Image url="@ninja1.png" />
             </image>
         </ImageView>
-        <Label fx:id="welcomeText" alignment="CENTER" contentDisplay="CENTER" layoutX="4.0" prefHeight="92.0" prefWidth="351.0" text="STICK HERO" textAlignment="CENTER" wrapText="true">
+        <Label fx:id="welcomeText" alignment="CENTER" contentDisplay="CENTER" layoutX="4.0" layoutY="24.0" prefHeight="92.0" prefWidth="351.0" text="STICK HERO" textAlignment="CENTER" wrapText="true">
             <font>
-                <Font size="31.0" />
+                <Font name="Rockwell Bold" size="31.0" />
             </font>
         </Label>
         <Circle fx:id="circle" fill="#fc3700" layoutX="178.0" layoutY="195.0" radius="56.0" stroke="BLACK" strokeType="INSIDE" />
@@ -37,19 +37,20 @@
                 <Blend mode="OVERLAY" />
             </effect></Button>
         <Rectangle fx:id="primary_platform" arcHeight="5.0" arcWidth="5.0" height="119.0" layoutX="138.0" layoutY="397.0" stroke="BLACK" strokeType="INSIDE" width="80.0" />
-        <ImageView fx:id="cherry_icon" fitHeight="45.0" fitWidth="40.0" layoutX="180.0" layoutY="91.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <Rectangle fx:id="score_bg" arcHeight="5.0" arcWidth="5.0" fill="#1081ea" height="45.0" layoutX="149.0" layoutY="16.0" opacity="0.22" stroke="BLACK" strokeType="INSIDE" visible="false" width="74.0" />
+        <ImageView fx:id="cherry_icon" fitHeight="45.0" fitWidth="40.0" layoutX="180.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" visible="false">
             <image>
                 <Image url="@cherry.png" />
             </image>
         </ImageView>
-        <Text fx:id="counter" fill="#09b5ff" layoutX="157.0" layoutY="120.0" stroke="#f9faf6" strokeType="OUTSIDE" strokeWidth="3.0" text="0" visible="false">
+        <Text fx:id="counter" fill="#09b5ff" layoutX="156.0" layoutY="46.0" stroke="#f9faf6" strokeType="OUTSIDE" strokeWidth="3.0" text="0" visible="false">
             <font>
                 <Font size="23.0" />
             </font>
         </Text>
         <Text fx:id="txt" fill="#f2eded" layoutX="134.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PLAY" textAlignment="CENTER" wrappingWidth="87.7132568359375">
             <font>
-                <Font size="18.0" />
+                <Font name="System Bold" size="20.0" />
             </font>
         </Text>
       <ImageView fx:id="pause_btn" fitHeight="30.0" fitWidth="30.0" layoutX="308.0" layoutY="24.0" onMouseClicked="#pause" pickOnBounds="true" preserveRatio="true">

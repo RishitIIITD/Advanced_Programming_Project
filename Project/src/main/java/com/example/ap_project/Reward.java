@@ -1,6 +1,5 @@
 package com.example.ap_project;
 
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -37,13 +36,10 @@ public class Reward {
         this.points=new_points;
     }
 
+    // adapter function
     public void removeCherry(Pane pane){
-        System.out.println("REMOVING");
-
         this.getImgv().setImage(null);
         this.getImgv().setCache(false);
         pane.getChildren().remove(this.getImgv());
-
-        System.out.println("REMOVED");
     }
 }
