@@ -138,14 +138,17 @@ public class HelloController implements Initializable {
 
             if (landed){
                 double steps_to_move=secondary_platform.getBoundsInParent().getMaxX();
-                player.moveRight_when_landed(steps_to_move, reward, pane);
-                ct++;
+                player.moveRight_when_landed(steps_to_move, reward, pane, ct);
                 counter.setText(String.valueOf(ct));
             }
             else{
                 System.out.println("YOU SHALL NOT LAND");
                 player.fall_down(tip_of_stick, pane_height);
+                txt.setText("GAME OVER");
+                txt.setLayoutY(txt.getLayoutY()-13);        // shift the GAME OVER up
+                txt.toFront();
                 btn.setDisable(true);
+                pause_menu.setVisible(true);
                 game_over=true;
             }
         }

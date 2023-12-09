@@ -37,12 +37,13 @@ public class Reward {
         this.points=new_points;
     }
 
-    public void removeCherry(Pane pane){
-        System.out.println("REMOVING");
-        Node parent = this.getImgv().getParent();
+    public void removeCherry(Pane pane, int ct){
         this.getImgv().setImage(null);
         this.getImgv().setCache(false);
         pane.getChildren().remove(this.getImgv());
-        System.out.println("REMOVED");
+
+        System.out.println("Before SCORE: "+ct);
+        ct++;
+        System.out.println("After SCORE: "+ct);
     }
 }

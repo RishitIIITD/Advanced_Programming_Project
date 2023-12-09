@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
+// Implemented Singleton Pattern
 public class Player {
     private static Player instance;     // public static instance
     private ImageView imgv;
@@ -22,7 +23,7 @@ public class Player {
     }
 
     // Public method to get the single instance
-    public static Player getInstance(ImageView imgv) {
+    public static Player getInstance(ImageView imgv) {      // public static getInstance() method
         if (instance == null) {
             instance = new Player(imgv);
         }
@@ -41,7 +42,7 @@ public class Player {
         isFlipped=!isFlipped;
     }
 
-    public void moveRight_when_landed(double Xpos, Reward reward, Pane pane){
+    public void moveRight_when_landed(double Xpos, Reward reward, Pane pane, int ct){
         double currentX = this.getImgv().getX();
         double destinationX = Xpos - player_width;
 
@@ -50,7 +51,7 @@ public class Player {
         translateTransition.setFromX(currentX);
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(16), event -> {
-            checkAndHandleRewardCollision(reward, pane);
+            checkAndHandleRewardCollision(reward, pane, ct);
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
@@ -61,15 +62,14 @@ public class Player {
         translateTransition.setOnFinished(event -> {
             System.out.println("Moved right: " + Xpos);
             timeline.stop(); // Stop the timeline when the translation is finished
-            checkAndHandleRewardCollision(reward, pane);
+            checkAndHandleRewardCollision(reward, pane, ct);
         });
     }
 
-    private void checkAndHandleRewardCollision(Reward reward, Pane pane) {
+    private void checkAndHandleRewardCollision(Reward reward, Pane pane, int ct) {
         if (this.getImgv().getBoundsInParent().intersects(reward.getImgv().getBoundsInParent())) {
-            System.out.println("CONTACT");
             reward.getImgv().setVisible(false);
-            reward.removeCherry(pane);
+            reward.removeCherry(pane, ct);
         }
     }
 

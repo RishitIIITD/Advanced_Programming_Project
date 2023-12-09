@@ -34,7 +34,7 @@ public class Stick extends Node {
         }
     }
 
-    public void rotate90degrees(double X_coord){
+    public void rotate90degrees(double X_coord){        // width of primary_platform
         System.out.println("Before rotation:");
         System.out.println("Top of stick: "+this.getStick().getBoundsInParent().getMinY());
         System.out.println("Bottom of stick: "+this.getStick().getBoundsInParent().getMaxY());
@@ -50,7 +50,7 @@ public class Stick extends Node {
         stick.getTransforms().add(r);
 
         stick.setLayoutX(X_coord+stick.getHeight());        // offset to increase
-        stick.setLayoutY(397-6);
+        stick.setLayoutY(397-6);        // LayoutY of platform - width of thin stick(5) -1(to make separation visible)
 
         System.out.println("After rotation:");
         System.out.println("Top of stick: "+this.getStick().getBoundsInParent().getMinY());
