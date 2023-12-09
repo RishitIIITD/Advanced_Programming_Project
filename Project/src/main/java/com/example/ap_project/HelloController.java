@@ -5,6 +5,7 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -22,8 +23,8 @@ import java.util.ResourceBundle;
 public class HelloController implements Initializable {
     @FXML
     private AnchorPane pane;
-    private double pane_width=360;
-    private double pane_height=430;
+    private static final double pane_width=360;
+    private static final double pane_height=430;
 
     @FXML
     private ImageView bg;
@@ -44,6 +45,7 @@ public class HelloController implements Initializable {
     private Reward reward;
     @FXML
     private Text counter;
+    private int ct=0;
 
     // player
     @FXML
@@ -54,8 +56,8 @@ public class HelloController implements Initializable {
     @FXML
     private Rectangle primary_platform;
     private Rectangle secondary_platform;
-    private double platform_height=119;
-    private double platform_layoutY=397;
+    private static final double platform_height=119;
+    private static final double platform_layoutY=397;
 
     private boolean clicked_play=false;
 
@@ -81,7 +83,7 @@ public class HelloController implements Initializable {
         reward.getImgv().setLayoutX(primary_platform.getBoundsInParent().getMaxX()+20);
         reward.getImgv().setLayoutY(primary_platform.getLayoutY()-57);
 
-        if (clicked_play==false) {      // to ensure that only 1 platform is generated at a time. may change
+        if (!clicked_play) {      // to ensure that only 1 platform is generated at a time. may change
             System.out.println(clicked_play);
             // creating new platform
             secondary_platform = new Rectangle();
@@ -102,13 +104,20 @@ public class HelloController implements Initializable {
             System.out.println("Created a second platform");
         }
         clicked_play=true;
+    }
 
-        new_stick=new Stick(primary_platform.getBoundsInParent().getMaxX());
-        btn.setOnMousePressed(mouseEvent -> {
+    @FXML
+    void Pressing(MouseEvent event) {
+        if (clicked_play){
+            new_stick=new Stick(primary_platform.getBoundsInParent().getMaxX());
             pane.getChildren().add(new_stick.getStick());
             isIncreasing=true;
-        });
-        btn.setOnMouseReleased(mouseEvent -> {
+        }
+    }
+
+    @FXML
+    void Released(MouseEvent event) {
+        if (clicked_play){
             isIncreasing=false;
             System.out.println("Max X of platform: "+primary_platform.getWidth());
             new_stick.rotate90degrees(primary_platform.getWidth());     // pass width as argument to upperlimit height
@@ -118,13 +127,20 @@ public class HelloController implements Initializable {
             if (landed){
                 double steps_to_move=secondary_platform.getBoundsInParent().getMaxX();
                 player.moveRight_when_landed(steps_to_move, reward);
+                ct++;
+                counter.setText(String.valueOf(ct));
             }
             else{
                 System.out.println("YOU SHALL NOT LAND");
                 player.fall_down(tip_of_stick, pane_height);
                 btn.setDisable(true);
             }
-        });
+        }
+    }
+
+    @FXML
+    void pause(MouseEvent event) {
+        System.out.println("PAUSED!!");
     }
 
     @Override

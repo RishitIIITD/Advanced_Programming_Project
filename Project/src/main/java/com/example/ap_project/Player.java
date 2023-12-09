@@ -1,5 +1,8 @@
 package com.example.ap_project;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
@@ -9,7 +12,6 @@ import javafx.util.Duration;
 
 public class Player {
     private ImageView imgv;
-    private double stickLength;
     private boolean isFlipped;
     public static final double player_width=60;
     public static final double player_height=80;
@@ -22,19 +24,7 @@ public class Player {
         return this.imgv;
     }
 
-    public void setImgv(ImageView new_img){
-        this.imgv=new_img;
-    }
-
-    public double getStickLength(){
-        return this.stickLength;
-    }
-
-    public void setStickLength(double new_length){
-        this.stickLength=new_length;
-    }
-
-    public boolean isitFlipped(){
+    public boolean isItFlipped(){
         return this.isFlipped;
     }
 
@@ -43,25 +33,32 @@ public class Player {
     }
 
     public void moveRight_when_landed(double Xpos, Reward reward){
-        double currentX = this.imgv.getX();
+        double currentX = this.getImgv().getX();
         double destinationX = Xpos - player_width;
 
-        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(.5), this.imgv);
+        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(.5), this.getImgv());
         translateTransition.setToX(destinationX);
         translateTransition.setFromX(currentX);
 
-        translateTransition.setOnFinished(event -> {
-            System.out.println("Moved right: " + Xpos);
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(16), event -> {
             checkAndHandleRewardCollision(reward);
-        });
+        })
+        );
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
 
+        // Play the translation transition
         translateTransition.play();
 
-        System.out.println("Moved right: "+Xpos);
+        translateTransition.setOnFinished(event -> {
+            System.out.println("Moved right: " + Xpos);
+            timeline.stop(); // Stop the timeline when the translation is finished
+            checkAndHandleRewardCollision(reward);
+        });
     }
 
     private void checkAndHandleRewardCollision(Reward reward) {
-        if (this.imgv.getBoundsInParent().intersects(reward.getImgv().getBoundsInParent())) {
+        if (this.getImgv().getBoundsInParent().intersects(reward.getImgv().getBoundsInParent())) {
             System.out.println("CONTACT");
             reward.getImgv().setVisible(false);
             reward.removeCherry();

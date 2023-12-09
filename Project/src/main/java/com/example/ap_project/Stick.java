@@ -10,8 +10,8 @@ import javafx.util.Duration;
 public class Stick extends Node {
     private Rectangle stick;
     private double height = 10;
-    private final double width = 5;
-    private final int Y_coord = 386;
+    private static final double width = 5;
+    private static final int Y_coord = 386;
 
     public Stick(double platform_max_X) {
         stick = new Rectangle(width, height);

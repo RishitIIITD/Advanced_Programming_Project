@@ -35,9 +35,13 @@ public class Reward {
     }
 
     public void removeCherry(){
-        Node parent = imgv.getParent();
+        System.out.println("REMOVING");
+        Node parent = this.getImgv().getParent();
+        this.getImgv().setImage(null);
+        this.getImgv().setCache(false);
         if (parent instanceof javafx.scene.layout.Pane) {
             ((javafx.scene.layout.Pane) parent).getChildren().remove(imgv);
+            System.out.println("REMOVED");
         }
     }
 }
