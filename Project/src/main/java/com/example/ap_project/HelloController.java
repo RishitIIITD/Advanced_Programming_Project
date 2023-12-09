@@ -1,5 +1,6 @@
 package com.example.ap_project;
 
+import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -77,7 +78,7 @@ public class HelloController implements Initializable {
 
     @FXML
     void onHelloButtonClick(MouseEvent event) {
-        if (!clicked_play) {
+        if (!clicked_play) {        // this should happen once
             bg.setVisible(false);
             welcomeText.setVisible(false);
             txt.setText("EXTEND");
@@ -139,6 +140,13 @@ public class HelloController implements Initializable {
             if (landed){
                 double steps_to_move=secondary_platform.getBoundsInParent().getMaxX();
                 player.moveRight_when_landed(steps_to_move, reward, pane, ct, counter);
+
+                // disappear the disk after some time(2 sec)
+                FadeTransition fadeTransition = new FadeTransition(Duration.seconds(2), new_stick.getStick());
+                fadeTransition.setFromValue(1.0); // Starting opacity
+                fadeTransition.setToValue(0.0);   // Ending opacity
+                fadeTransition.play();
+                fadeTransition.setOnFinished(e->{});
             }
             else{
                 System.out.println("YOU SHALL NOT LAND");
@@ -146,6 +154,14 @@ public class HelloController implements Initializable {
                 txt.setText("GAME OVER");
                 txt.setLayoutY(txt.getLayoutY()-13);        // shift the GAME OVER up
                 txt.toFront();
+
+                // disappear the disk after some time(2 sec)
+                FadeTransition fadeTransition = new FadeTransition(Duration.seconds(2), new_stick.getStick());
+                fadeTransition.setFromValue(1.0); // Starting opacity
+                fadeTransition.setToValue(0.0);   // Ending opacity
+                fadeTransition.play();
+                fadeTransition.setOnFinished(e->{});
+
                 btn.setDisable(true);
                 pause_menu.setVisible(true);
                 game_over=true;
