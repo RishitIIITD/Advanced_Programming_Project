@@ -32,7 +32,7 @@ public class Player {
         isFlipped=!isFlipped;
     }
 
-    public void moveRight_when_landed(double Xpos, Reward reward){
+    public void moveRight_when_landed(double Xpos, Reward reward, Pane pane){
         double currentX = this.getImgv().getX();
         double destinationX = Xpos - player_width;
 
@@ -41,7 +41,7 @@ public class Player {
         translateTransition.setFromX(currentX);
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(16), event -> {
-            checkAndHandleRewardCollision(reward);
+            checkAndHandleRewardCollision(reward, pane);
         })
         );
         timeline.setCycleCount(Animation.INDEFINITE);
@@ -53,15 +53,15 @@ public class Player {
         translateTransition.setOnFinished(event -> {
             System.out.println("Moved right: " + Xpos);
             timeline.stop(); // Stop the timeline when the translation is finished
-            checkAndHandleRewardCollision(reward);
+            checkAndHandleRewardCollision(reward, pane);
         });
     }
 
-    private void checkAndHandleRewardCollision(Reward reward) {
+    private void checkAndHandleRewardCollision(Reward reward, Pane pane) {
         if (this.getImgv().getBoundsInParent().intersects(reward.getImgv().getBoundsInParent())) {
             System.out.println("CONTACT");
             reward.getImgv().setVisible(false);
-            reward.removeCherry();
+            reward.removeCherry(pane);
         }
     }
 

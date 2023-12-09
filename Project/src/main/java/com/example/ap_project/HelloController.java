@@ -60,6 +60,14 @@ public class HelloController implements Initializable {
     private static final double platform_layoutY=397;
 
     private boolean clicked_play=false;
+    private boolean game_over=false;
+
+    // paused
+    @FXML
+    private ImageView pause_btn;
+    @FXML
+    private Rectangle pause_menu;
+    private boolean paused=false;
 
     private Stick new_stick;
 
@@ -69,11 +77,13 @@ public class HelloController implements Initializable {
 
     @FXML
     void onHelloButtonClick(MouseEvent event) {
-        bg.setVisible(false);
-        welcomeText.setVisible(false);
-        txt.setText("EXTEND");
-        counter.setVisible(true);
-        cherry_icon.setVisible(true);
+        if (!clicked_play) {
+            bg.setVisible(false);
+            welcomeText.setVisible(false);
+            txt.setText("EXTEND");
+            counter.setVisible(true);
+            cherry_icon.setVisible(true);
+        }
 
         primary_platform.setLayoutX(0);
         player.getImgv().setLayoutX(0);
@@ -126,7 +136,7 @@ public class HelloController implements Initializable {
             boolean landed=new_stick.did_land(tip_of_stick, secondary_platform);
             if (landed){
                 double steps_to_move=secondary_platform.getBoundsInParent().getMaxX();
-                player.moveRight_when_landed(steps_to_move, reward);
+                player.moveRight_when_landed(steps_to_move, reward, pane);
                 ct++;
                 counter.setText(String.valueOf(ct));
             }
@@ -134,13 +144,28 @@ public class HelloController implements Initializable {
                 System.out.println("YOU SHALL NOT LAND");
                 player.fall_down(tip_of_stick, pane_height);
                 btn.setDisable(true);
+                game_over=true;
             }
         }
     }
 
     @FXML
     void pause(MouseEvent event) {
-        System.out.println("PAUSED!!");
+        if (!paused) {
+            System.out.println("PAUSED!!");
+            txt.setText("PAUSED");
+            txt.toFront();
+            btn.setDisable(true);
+            pause_menu.setVisible(true);
+            pause_btn.toFront();
+            paused=true;
+        }
+        else if (paused){
+            System.out.println("RESUMED!!");
+            btn.setDisable(false);
+            pause_menu.setVisible(false);
+            paused=false;
+        }
     }
 
     @Override
@@ -154,5 +179,4 @@ public class HelloController implements Initializable {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
     }
-
 }

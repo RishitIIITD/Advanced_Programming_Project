@@ -3,6 +3,9 @@ package com.example.ap_project;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+
+import java.util.Objects;
 
 public class Reward {
     private Image img;
@@ -10,7 +13,7 @@ public class Reward {
     private int points;
 
     public Reward(){
-        img=new Image(getClass().getResourceAsStream("cherry.png"));
+        img=new Image(Objects.requireNonNull(getClass().getResourceAsStream("cherry.png")));
         imgv=new ImageView(img);
         imgv.setFitWidth(40);
         imgv.setFitHeight(45);
@@ -34,14 +37,12 @@ public class Reward {
         this.points=new_points;
     }
 
-    public void removeCherry(){
+    public void removeCherry(Pane pane){
         System.out.println("REMOVING");
         Node parent = this.getImgv().getParent();
         this.getImgv().setImage(null);
         this.getImgv().setCache(false);
-        if (parent instanceof javafx.scene.layout.Pane) {
-            ((javafx.scene.layout.Pane) parent).getChildren().remove(imgv);
-            System.out.println("REMOVED");
-        }
+        pane.getChildren().remove(this.getImgv());
+        System.out.println("REMOVED");
     }
 }

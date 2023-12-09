@@ -57,5 +57,6 @@
             <Image url="@pause_button1.png" />
          </image>
       </ImageView>
+      <Rectangle fx:id="pause_menu" arcHeight="5.0" arcWidth="5.0" fill="#020f1b" height="512.6" layoutY="4.0" opacity="0.55" stroke="BLACK" strokeType="INSIDE" visible="false" width="360.0" />
     </children>
 </AnchorPane>
