@@ -1,7 +1,10 @@
 package com.example.ap_project;
 
+import javafx.animation.KeyFrame;
 import javafx.animation.RotateTransition;
+import javafx.animation.Timeline;
 import javafx.scene.Node;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
@@ -67,5 +70,9 @@ public class Stick extends Node {
             return true;
         }
         return false;
+    }
+
+    public void removeStick(Pane pane){
+        pane.getChildren().remove(this.getStick());
     }
 }

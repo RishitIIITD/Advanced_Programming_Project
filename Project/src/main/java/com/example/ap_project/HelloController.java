@@ -88,11 +88,6 @@ public class HelloController implements Initializable {
         primary_platform.setLayoutX(0);
         player.getImgv().setLayoutX(0);
 
-        reward=new Reward();
-        pane.getChildren().add(reward.getImgv());
-        reward.getImgv().setLayoutX(primary_platform.getBoundsInParent().getMaxX()+20);
-        reward.getImgv().setLayoutY(primary_platform.getLayoutY()-57);
-
         if (!clicked_play) {      // to ensure that only 1 platform is generated at a time. may change
             System.out.println(clicked_play);
             // creating new platform
@@ -111,6 +106,12 @@ public class HelloController implements Initializable {
             secondary_platform.setLayoutX(low);
             secondary_platform.setLayoutY(platform_layoutY);
             pane.getChildren().add(secondary_platform);
+
+            reward=new Reward();
+            pane.getChildren().add(reward.getImgv());
+            reward.getImgv().setLayoutX(secondary_platform.getLayoutX());
+            reward.getImgv().setLayoutY(platform_layoutY-45);
+
             System.out.println("Created a second platform");
         }
         clicked_play=true;
@@ -130,10 +131,11 @@ public class HelloController implements Initializable {
         if (clicked_play){
             isIncreasing=false;
             System.out.println("Max X of platform: "+primary_platform.getWidth());
-            new_stick.rotate90degrees(primary_platform.getWidth());     // pass width as argument to upperlimit height
+            new_stick.rotate90degrees(primary_platform.getWidth());     // pass width as argument to upper_limit height
             double tip_of_stick=new_stick.getStick().getBoundsInParent().getMaxX();      // steps to move right
             System.out.println(tip_of_stick);
             boolean landed=new_stick.did_land(tip_of_stick, secondary_platform);
+
             if (landed){
                 double steps_to_move=secondary_platform.getBoundsInParent().getMaxX();
                 player.moveRight_when_landed(steps_to_move, reward, pane);
@@ -162,6 +164,7 @@ public class HelloController implements Initializable {
         }
         else if (paused){
             System.out.println("RESUMED!!");
+            txt.setText("EXTEND");
             btn.setDisable(false);
             pause_menu.setVisible(false);
             paused=false;
@@ -170,7 +173,7 @@ public class HelloController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        player=new Player(player_icon);
+        player=Player.getInstance(player_icon);
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(10), e -> {
             if (isIncreasing) {
                 new_stick.increaseHeight(3,primary_platform.getWidth()); // You can adjust the length increment as needed

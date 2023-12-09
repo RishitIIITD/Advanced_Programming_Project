@@ -11,13 +11,22 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 public class Player {
+    private static Player instance;     // public static instance
     private ImageView imgv;
     private boolean isFlipped;
     public static final double player_width=60;
     public static final double player_height=80;
 
-    public Player(ImageView imgv){
-        this.imgv=imgv;
+    private Player(ImageView imgv) {        // private constructor
+        this.imgv = imgv;
+    }
+
+    // Public method to get the single instance
+    public static Player getInstance(ImageView imgv) {
+        if (instance == null) {
+            instance = new Player(imgv);
+        }
+        return instance;
     }
 
     public ImageView getImgv(){
@@ -42,8 +51,7 @@ public class Player {
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(16), event -> {
             checkAndHandleRewardCollision(reward, pane);
-        })
-        );
+        }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
 
