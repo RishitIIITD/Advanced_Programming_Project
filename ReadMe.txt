@@ -3,6 +3,7 @@ ADVANCED PROGRAMMING GAME PROJECT
 STICK HERO
 
 NAME: RISHIT(2022405), HARSHIL HANDOO(2022206)
+GROUP NUMBER: 120
 
 DESCRIPTION: We have implemented a game inspired by Stick Hero using JavaFX and Scene Builder using the OOPs principles
 taught to us throughout the semester.
