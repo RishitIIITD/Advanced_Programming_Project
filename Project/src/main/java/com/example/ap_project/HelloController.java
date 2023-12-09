@@ -138,8 +138,7 @@ public class HelloController implements Initializable {
 
             if (landed){
                 double steps_to_move=secondary_platform.getBoundsInParent().getMaxX();
-                player.moveRight_when_landed(steps_to_move, reward, pane, ct);
-                counter.setText(String.valueOf(ct));
+                player.moveRight_when_landed(steps_to_move, reward, pane, ct, counter);
             }
             else{
                 System.out.println("YOU SHALL NOT LAND");
